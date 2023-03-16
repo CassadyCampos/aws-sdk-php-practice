@@ -25,8 +25,8 @@ class AWSParameterStore implements ISecretsManager {
                 'region' => 'us-west-2',
                 'scheme' => 'https',
                 'credentials' => [
-                    'key' => 'AKIATTYX4GGXOZ4MQT4N',
-                    'secret' => '371F0rXttaG51wSC51x9bBuHZsrQ6mugVDJF/y9J',
+                    'key' => 'yourkey',
+                    'secret' => 'yoursecret',
                 ]
             ]);
 
@@ -52,8 +52,8 @@ class AWSParameterStore implements ISecretsManager {
             //     'region' => 'us-west-2',
             //     'version' => 'latest',
             //     'credentials' => [
-            //         'key' => 'AKIATTYX4GGXOZ4MQT4N',
-            //         'secret' => '371F0rXttaG51wSC51x9bBuHZsrQ6mugVDJF/y9J',
+            //         'key' => 'yourkey',
+            //         'secret' => 'yourkey',
             //     ]
             // ]);
             
@@ -74,8 +74,8 @@ class AWSParameterStore implements ISecretsManager {
             //     'region' => 'us-west-2',
             //     'scheme' => 'http',
             //     'credentials' => [
-            //         'key' => 'AKIATTYX4GGXOZ4MQT4N',
-            //         'secret' => '371F0rXttaG51wSC51x9bBuHZsrQ6mugVDJF/y9J',
+            //         'key' => 'yourkey',
+            //         'secret' => 'yourkey',
             //     ]
             // ]);
 
