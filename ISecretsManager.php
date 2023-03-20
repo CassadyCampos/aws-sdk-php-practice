@@ -2,6 +2,7 @@
 require 'vendor\autoload.php';
 
 use Aws\Ssm\SsmClient;
+use Aws\Credentials\CredentialProvider;
 use Aws\S3\S3Client;
 use Aws\Iam\IamClient; 
 use Aws\Exception\AwsException;
@@ -14,20 +15,17 @@ interface ISecretsManager {
 
 class AWSParameterStore implements ISecretsManager {
     public function Get($key) {
-        var_dump(openssl_get_cert_locations());
-        echo "test\r\n\r";
-        echo "openssl.cafile: ", ini_get('openssl.cafile'), "\n";
-        echo "curl.cainfo: ", ini_get('curl.cainfo'), "\n";
         try {
+            $path = "%USERPROFILE%\.aws\credentials";
+            $provider = CredentialProvider::ini('default', $path); 
+            $provider = CredentialProvider::memoize($provider);
+
+
             //Create a SSMClient
             $client = new SsmClient([
                 'version' => 'latest',
                 'region' => 'us-west-2',
-                'scheme' => 'https',
-                'credentials' => [
-                    'key' => 'yourkey',
-                    'secret' => 'yoursecret',
-                ]
+                'credentials' => $provider,
             ]);
 
 
@@ -37,7 +35,8 @@ class AWSParameterStore implements ISecretsManager {
                 "Name" => $key,
                 "WithDecrpytion" => true
             ]);
-            return $result;
+            $_ENV[$key] = $result["Parameter"]["Value"];
+            return $result["Parameter"]["Value"];
         }
         catch (AwsException $e) {
             echo ("\r\nError: " . $e->__toString());
@@ -52,8 +51,8 @@ class AWSParameterStore implements ISecretsManager {
             //     'region' => 'us-west-2',
             //     'version' => 'latest',
             //     'credentials' => [
-            //         'key' => 'yourkey',
-            //         'secret' => 'yourkey',
+            //         'key' => 'key',
+            //         'secret' => 'secret',
             //     ]
             // ]);
             
@@ -74,8 +73,8 @@ class AWSParameterStore implements ISecretsManager {
             //     'region' => 'us-west-2',
             //     'scheme' => 'http',
             //     'credentials' => [
-            //         'key' => 'yourkey',
-            //         'secret' => 'yourkey',
+            //         'key' => 'key',
+            //         'secret' => 'secret',
             //     ]
             // ]);
 

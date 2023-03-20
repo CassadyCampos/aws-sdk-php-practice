@@ -1,13 +1,14 @@
 <?php
     include_once("config.php");
     include_once("ISecretsManager.php");
+    use Dotenv\Dotenv;
 
-    echo "'Test Hello World'\r\n\r";
-    // $result = mysqli_query($mysqli, "SELECT * FROM contacts ORDER BY id DESC");
+    $paramStore = new AWSParameterStore();
 
-    $test = new AWSParameterStore();
-    $res = $test->Get("cassadyTest");
-    
-    
-    echo $res;
+    $key = "CONNECTION_STRING";
+    $value = $paramStore->Get("cassadyTest");
+
+    $_ENV[$key] = $value;
+
+    echo $_ENV["CONNECTION_STRING"];
 ?>
